@@ -1,0 +1,10 @@
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&display=swap");
+@import "tailwindcss";
+
+*{
+    font-family: "satoshi";
+}
+
+@theme{
+    --color-primary: #1A1A40;
+}
