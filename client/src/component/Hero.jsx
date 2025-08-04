@@ -12,14 +12,14 @@ const Hero = () => {
 
     return (
 
-        <div className='px-4 sm:px-20 xl:px-32 relative inline-flex flex-col w-full justify-center bg-[url(/background.svg)] bg-center bg-cover bg-no-repeat min-h-screen'>
+        <div className='px-4 sm:px-20 xl:px-32 relative inline-flex flex-col w-full justify-center bg-[url(/background-1.svg)] bg-center bg-cover bg-no-repeat min-h-screen'>
            
 
             <div className='text-center mb-6 mt-9'>
               
                 <h1 className='text-3xl sm:text-5xl md:text-6xl 2xl:text-7xl font-semibold m-auto leading-[1.2]'>Supercharge your creativity <br />with<span className='text-secondary'> AI tools.</span> </h1>
                
-                <p className='mt-4 max-w-xs sm:max-w-xl 2xl:max-w-2xl m-auto max-sm:text-sm text-white/60'>Transform ideas into impact. From blog posts to visuals, InkVision.ai empowers creators with next-gen AI tools that spark creativity.</p>
+                <p className='mt-4 max-w-xs sm:max-w-xl 2xl:max-w-2xl m-auto max-sm:text-sm text-white/60'>Transform ideas into impact. From blog posts to visuals, Inkvio.ai empowers creators with next-gen AI tools that spark creativity.</p>
                 
             </div>
 
@@ -29,8 +29,8 @@ const Hero = () => {
             </div>
 
 
-            <div class="flex items-center mt-6 justify-center-safe ml-3 divide-x divide-gray-200">
-                <div class="flex -space-x-3.5 pr-2 ">
+            <div className="flex items-center mt-8 justify-center-safe ml-3 divide-x divide-gray-200">
+                <div className="flex -space-x-3.5 pr-2 ">
                     <img src={assets.user1} alt="image" className="size-10 border-3 border-white rounded-full hover:-translate-y-1.5 transition z-1" />
                     <img src={assets.user2} alt="image" className="size-10 border-3 border-white rounded-full hover:-translate-y-1.5 transition z-[2]" />
                     <img src={assets.user3} alt="image" className="size-10 border-3 border-white rounded-full hover:-translate-y-1.5 transition z-[3]" />
