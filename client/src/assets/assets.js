@@ -79,29 +79,37 @@ export const AiToolsData = [
     }
 ]
 
-export const dummyTestimonialData = [
-    {
-        image: assets.profile_img_1,
-        name: 'John Doe',
-        title: 'Marketing Director, TechCorp',
-        content: 'ContentAI has revolutionized our content workflow. The quality of the articles is outstanding, and it saves us hours of work every week.',
-        rating: 4,
-    },
-    {
-        image: assets.profile_img_1,
-        name: 'Jane Smith',
-        title: 'Content Creator, TechCorp',
-        content: 'ContentAI has made our content creation process effortless. The AI tools have helped us produce high-quality content faster than ever before.',
-        rating: 5,
-    },
-    {
-        image: assets.profile_img_1,
-        name: 'David Lee',
-        title: 'Content Writer, TechCorp',
-        content: 'ContentAI has transformed our content creation process. The AI tools have helped us produce high-quality content faster than ever before.',
-        rating: 4,
-    },
-]
+export  const dummyTestimonialData = [
+        {
+            image: user1,
+            name: 'Aarav M.',
+            title: 'Content Strategist',
+            content: 'Inkvio.ai helped us scale our blog production without compromising on quality. The article generator alone saved us dozens of hours each month.',
+            rating: 4,
+        },
+        {
+            image: user2,
+            name: 'Mohit R.',
+            title: 'Digital Marketing Manager',
+            content: 'Our content pipeline has never been smoother. With Inkvio.ai, the team produces more in less time without sacrificing quality or originality.',
+            rating: 5,
+        },
+        {
+            image: user5,
+            name: 'Rahul V.',
+            title: 'Job Seeker',
+            content: 'The resume analyzer gave me actionable feedback I didn’t even get from paid resume review services. Highly impressed.',
+            rating: 5,
+        },
+        // {
+        //     image: user3,
+        //     name: 'Nisha K.',
+        //     title: 'Freelance Designer',
+        //     content: 'I use Inkvio.ai daily for captions and visuals. It saves hours and helps me stay focused on the creative direction, not formatting.',
+        //     rating: 5,
+        // },
+        
+    ]
 
 
 export const dummyCreationData = [
