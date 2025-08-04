@@ -1,6 +1,5 @@
 import logo from "./logo.svg";
 import gradientBackground from "./gradientBackground.png";
-import user_group from "./user_group.png";
 import star_icon from "./star_icon.svg";
 import star_dull_icon from "./star_dull_icon.svg";
 import profile_img_1 from "./profile_img_1.png";
@@ -9,15 +8,30 @@ import { SquarePen, Hash, Image, Eraser, Scissors, FileText } from 'lucide-react
 import ai_gen_img_1 from "./ai_gen_img_1.png";
 import ai_gen_img_2 from "./ai_gen_img_2.png";
 import ai_gen_img_3 from "./ai_gen_img_3.png";
+import user1 from './user1.jpeg'
+import user2 from './user2.jpeg'
+import user3 from './user3.png'
+import user4 from './user4.jpg'
+import user5 from './user5.png'
+import star from './Goldenstar_icon.svg'
+import stars from './star.svg'
+
+
 
 export const assets = {
     logo,
     gradientBackground,
-    user_group,
     star_icon,
     star_dull_icon,
     profile_img_1,
     arrow_icon,
+    user1,
+    user2,
+    user3,
+    user4,
+    user5,
+    star,
+    stars,
 };
 
 export const AiToolsData = [
