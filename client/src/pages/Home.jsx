@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from '../component/Navbar'
 import Hero from '../component/Hero'
 import Tools from '../component/Tools'
-import Testimonial from '../component/testimonial'
+import Testimonial from '../component/Testimonial'
 
 
 const Home = () => {
@@ -11,7 +11,7 @@ const Home = () => {
       <Navbar />
       <Hero />
       <Tools />
-      <Testimonial />
+      <Testimonial/>
     </div>
   )
 }
