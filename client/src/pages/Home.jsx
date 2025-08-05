@@ -3,6 +3,8 @@ import Navbar from '../component/Navbar'
 import Hero from '../component/Hero'
 import Tools from '../component/Tools'
 import Testimonial from '../component/Testimonial'
+import Plans from '../component/Plans'
+import Footer from '../component/Footer'
 
 
 const Home = () => {
@@ -12,6 +14,8 @@ const Home = () => {
       <Hero />
       <Tools />
       <Testimonial/>
+      <Plans />
+      <Footer/>
     </div>
   )
 }

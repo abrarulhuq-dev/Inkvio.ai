@@ -7,8 +7,8 @@ const Hero = () => {
 
 
     const navigate = useNavigate()
-
-
+   
+    
 
     return (
 
@@ -24,7 +24,7 @@ const Hero = () => {
             </div>
 
             <div className='flex flex-wrap justify-center gap-4 text-sm max-sm:text-xs'>
-                <button onClick={() => navigate('/ai')} className='bg-primary text-white py-3 px-10 rounded-lg hover:scale-102 active:scale-95 transition cursor-pointer'>Start Create</button>
+                <button onClick={() => navigate('/ai') } className='bg-primary text-white py-3 px-10 rounded-lg hover:scale-102 active:scale-95 transition cursor-pointer'>Start Create</button>
                 <button className='bg-secondary text-back font-medium py-3 px-10 rounded-lg hover:scale-102 active:scale-95 transition cursor-pointer'>Try demo</button>
             </div>
 
