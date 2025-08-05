@@ -6,9 +6,9 @@ const Footer = () => {
   return (
     <div className='text-gray-500/80 pt-8 px-6 md:px-16 lg:px-24 xl:px-32'>
       <div className='flex flex-wrap justify-between gap-12 md:gap-6'>
-        <div className='max-w-80'>
+        <div className='max-w-85'>
           <img src={assets.logo} alt="logo" className='mb-4 h-8 md:h-9' />
-          <p className='text-sm'>Inkvio.ai is an AI-powered content creation platform designed to help creators, marketers, and professionals work faster and smarter. From writing blog titles to generating images, removing backgrounds, and reviewing resumes — our tools empower you to bring ideas to life with ease and efficiency.</p>
+          <p className='text-sm text-justify'>Inkvio.ai is your creative companion powered by AI. <br />Whether you're writing blog titles, generating images, removing backgrounds, or refining resumes, our tools are built to simplify your workflow. Save time, boost quality, and bring your ideas to life with a suite of intuitive features designed for modern creators.</p>
           <div className='flex items-center gap-3 mt-4 '>
             {/* Instagram */}
             <Instagram className='size-5 ' />

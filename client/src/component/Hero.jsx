@@ -15,7 +15,7 @@ const Hero = () => {
         <div className='px-4 sm:px-20 xl:px-32 relative inline-flex flex-col w-full justify-center bg-[url(/background-1.svg)] bg-center bg-cover bg-no-repeat min-h-screen'>
            
 
-            <div className='text-center mb-6 mt-9'>
+            <div className='text-center mb-6'>
               
                 <h1 className='text-3xl sm:text-5xl md:text-6xl 2xl:text-7xl font-semibold m-auto leading-[1.2]'>Supercharge your creativity <br />with<span className='text-secondary'> AI tools.</span> </h1>
                
