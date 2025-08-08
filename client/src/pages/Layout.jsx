@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { assets } from '../assets/assets'
 import { Menu, X } from 'lucide-react'
-import Sidebar from '../component/sidebar'
+import Sidebar from '../component/Sidebar'
 
 const Layout = () => {
 
