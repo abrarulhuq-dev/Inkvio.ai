@@ -1,13 +1,44 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { assets } from '../assets/assets'
+import toast from 'react-hot-toast'
+import { CircleAlertIcon } from 'lucide-react'
 
 
+const notify = () => {
+    toast.custom(() => (
+       
+        <div className= 'max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex'>
+            <div className="flex-1 w-0 p-4 items-center">
+                <div className="flex items-start">
+                    <div className="flex-shrink-0 pt-0.5">
+                        <CircleAlertIcon className="size-10 rounded-full text-red-500 text-center" />
+                    </div>
+                    <div className="ml-3 flex-1">
+                        <p className="text-sm font-medium text-gray-900">
+                            This project is currently under development.
+                        </p>
+                        <p className="mt-1 text-sm text-gray-500">
+                            Stay tuned! — we’ll be announcing the launch date soon!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    ),
+    {
+        duration: 1000,
+       
+    }
+)
+}
 const Hero = () => {
 
 
     const navigate = useNavigate()
-   
+
+    
+    
     
 
     return (
@@ -24,8 +55,8 @@ const Hero = () => {
             </div>
 
             <div className='flex flex-wrap justify-center gap-4 text-sm max-sm:text-xs'>
-                <button onClick={() => navigate('/ai') } className='bg-primary text-white py-3 px-10 rounded-lg hover:scale-102 active:scale-95 transition cursor-pointer'>Start Create</button>
-                <button className='bg-secondary text-back font-medium py-3 px-10 rounded-lg hover:scale-102 active:scale-95 transition cursor-pointer'>Try demo</button>
+                <button onClick={notify } className='bg-primary text-white py-3 px-10 rounded-lg hover:scale-102 active:scale-95 transition cursor-pointer'>Start Create</button>
+                <button onClick={notify} className='bg-secondary text-back font-medium py-3 px-10 rounded-lg hover:scale-102 active:scale-95 transition cursor-pointer'>Try demo</button>
             </div>
 
 

@@ -9,12 +9,13 @@ import Generateimage from './pages/Generateimage'
 import Backgroundremove from './pages/Backgroundremove'
 import Objectremove from './pages/Objectremove'
 import Resumereview from './pages/Resumereview'
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   return (
 
     <div>
-      
+      <Toaster  reverseOrder={true}/>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/ai' element={<Layout />}>
