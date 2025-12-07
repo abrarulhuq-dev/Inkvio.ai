@@ -13,3 +13,32 @@
     
 }
 
+.reset-tw, .reset-tw *{
+   all: revert !important;
+}
+
+.sidepanel-scrollbar {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.sidepanel-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.sidepanel-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidepanel-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+.sidepanel-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.sidepanel-scrollbar::-webkit-scrollbar-button {
+  display: none;
+}
+
+.cl-drawerRoot {
+    z-index: 10;
+}

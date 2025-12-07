@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { assets } from '../assets/assets'
 import toast from 'react-hot-toast'
 import { CircleAlertIcon } from 'lucide-react'
+import { useClerk, useUser } from '@clerk/clerk-react'
 
 
 const notify = () => {
@@ -32,10 +33,16 @@ const notify = () => {
     }
 )
 }
+
 const Hero = () => {
 
 
     const navigate = useNavigate()
+
+    const {user} = useUser();
+    const {openSignIn} = useClerk();
+
+    
 
     
     
@@ -55,7 +62,8 @@ const Hero = () => {
             </div>
 
             <div className='flex flex-wrap justify-center gap-4 text-sm max-sm:text-xs'>
-                <button onClick={notify } className='bg-primary text-white py-3 px-10 rounded-lg hover:scale-102 active:scale-95 transition cursor-pointer'>Start Create</button>
+                {/* if the user is then go to ai pages or show signin */}
+                <button onClick={user ? () =>navigate('/ai') : openSignIn({redirectUrl: '/ai'})} className='bg-primary text-white py-3 px-10 rounded-lg hover:scale-102 active:scale-95 transition cursor-pointer'>Start Create</button>
                 <button onClick={notify} className='bg-secondary text-back font-medium py-3 px-10 rounded-lg hover:scale-102 active:scale-95 transition cursor-pointer'>Try demo</button>
             </div>
 
