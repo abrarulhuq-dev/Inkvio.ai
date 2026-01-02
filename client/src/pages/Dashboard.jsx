@@ -16,7 +16,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="h-full overflow-y-scroll p-6">
+    <div className="h-full overflow-y-scroll sidepanel-scrollbar p-6">
       <div className="flex justify-start gap-4 flex-wrap">
         <div className="flex justify-between items-center w-72 p-4 px-6 bg-white rounded-xl border border-gray-200">
           <div className="text-slate-600">
