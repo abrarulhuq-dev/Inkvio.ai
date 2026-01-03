@@ -72,7 +72,7 @@ const Article = () => {
         <div className="flex-1 flex justify-center items-center">
           {/* Generated article content will go here */}
           <div className="text-sm flex flex-col items-center gap-5 text-gray-400">
-            <Edit className="w-6 h-9"/>
+            <Edit className="w-10 h-10"/>
             <p>Enter a Topic and click "Generate article" to get started</p>
 
           </div>

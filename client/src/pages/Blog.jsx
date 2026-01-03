@@ -27,7 +27,7 @@ const Blog = () => {
         <p className="mt-6 text-sm font-medium">Keyword</p>
         <input
           type="text"
-          placeholder="Enter your article topic..."
+          placeholder="The future of artificial intelligence"
           className="w-full p-2 px-3 mt-3 border border-gray-300 outline-none textsm rounded-md "
           onChange={(e) => settopic(e.target.value)}
           value={topic}
@@ -68,8 +68,8 @@ const Blog = () => {
         <div className="flex-1 flex justify-center items-center">
           {/* Generated article content will go here */}
           <div className="text-sm flex flex-col items-center gap-5 text-gray-400">
-            <Edit className="w-6 h-9" />
-            <p>Enter a Topic and click "Generate Title" to get started</p>
+            <Hash className="w-10 h-10" />
+            <p>Enter keywords and click "Generate Titles" to get started</p>
           </div>
         </div>
       </div>
