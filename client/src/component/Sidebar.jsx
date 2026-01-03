@@ -8,6 +8,7 @@ import {
   LogOut,
   Pen,
   Scissors,
+  Users,
 } from "lucide-react";
 import React from "react";
 import { NavLink } from "react-router-dom";
@@ -20,7 +21,7 @@ const navitems = [
   { to: "/ai/remove-background", label: "Remove Background", Icon: Eraser },
   { to: "/ai/remove-object", label: "Remove Object", Icon: Scissors },
   { to: "/ai/review-resume", label: "Review Resume", Icon: FileText },
-  // {to: '/ai/community', label: 'Community', Icon: },
+  {to: '/ai/community', label: 'Community', Icon: Users },
 ];
 
 const Sidebar = ({ sidebar, setsidebar }) => {

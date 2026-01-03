@@ -10,6 +10,7 @@ import Backgroundremove from './pages/Backgroundremove'
 import Objectremove from './pages/Objectremove'
 import Resumereview from './pages/Resumereview'
 import { Toaster } from 'react-hot-toast';
+import Community from './pages/Community'
 
 const App = () => {
   return (
@@ -26,6 +27,8 @@ const App = () => {
           <Route path='remove-background' element={<Backgroundremove/>} />
           <Route path='remove-object' element={<Objectremove />} />
           <Route path='review-resume' element={<Resumereview />} />
+          <Route path='community' element={<Community />} />
+
         </Route>
       </Routes>
     </div>
