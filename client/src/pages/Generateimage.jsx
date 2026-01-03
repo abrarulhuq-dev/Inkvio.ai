@@ -30,7 +30,7 @@ const Generateimage = () => {
         className="w-full max-w-lg p-4 bg-white rounded-lg border border-gray-200"
       >
         <div className="flex items-center gap-3">
-          <Sparkles className="w-6 text-[#00AD25]" />
+          <Sparkles className="w-6 text-[#9234EA]" />
           <h1 className="text-lg font-semibold">AI Image Generator</h1>
         </div>
         <p className="mt-6 text-sm font-medium">Describe Your Image</p>
@@ -51,7 +51,7 @@ const Generateimage = () => {
               key={idx}
               className={`text-xs px-4 py-1 border rounded-full cursor-pointer ${
                 selectedStyle === item
-                  ? " bg-green-50 text-green-700"
+                  ? " bg-purple-50 text-purple-700"
                   : "text-gray-500 border-gray-300"
               }`}
             >
@@ -75,7 +75,7 @@ const Generateimage = () => {
         </div>
 
  
-        <button className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#00AD25] to-[#04FF50] text-white px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer">
+        <button className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#1A1A40] to-[#9234EA] text-white px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer">
           <Image className="w-5" />
           Generate Image
         </button>
@@ -84,13 +84,13 @@ const Generateimage = () => {
       {/* right column */}
       <div className="w-full max-w-2xl p-4 bg-white rounded-lg flex flex-col border border-gray-200 min-h-96 max-h-[600px]">
         <div className="flex items-center gap-3">
-          <Edit className="w-6 text-[#00AD25]" />
+          <Image className="w-6 text-[#9234EA]" />
           <h1 className="text-lg font-semibold">Generated image</h1>
         </div>
         <div className="flex-1 flex justify-center items-center">
           {/* Generated article content will go here */}
           <div className="text-sm flex flex-col items-center gap-5 text-gray-400">
-            <Edit className="w-10 h-10" />
+            <Image className="w-10 h-10" />
             <p>Describe an image and click "Generate Image" to get started</p>
           </div>
         </div>

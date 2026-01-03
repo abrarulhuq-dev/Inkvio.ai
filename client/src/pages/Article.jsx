@@ -25,7 +25,7 @@ const Article = () => {
         className="w-full max-w-lg p-4 bg-white rounded-lg border border-gray-200"
       >
         <div className="flex items-center gap-3">
-          <Sparkles className="w-6 text-[#4a7aff]" />
+          <Sparkles className="w-6 text-[#9234EA]" />
           <h1 className="text-lg font-semibold">Article Creation</h1>
         </div>
         <p className="mt-6 text-sm font-medium">Article Topic</p>
@@ -46,7 +46,7 @@ const Article = () => {
               key={idx}
               className={`text-xs px-4 py-1 border rounded-full cursor-pointer ${
                 selectedLength.value === item.value
-                  ? " bg-blue-50 text-blue-700"
+                  ? " bg-purple-50 text-purple-700"
                   : "text-gray-500 border-gray-300"
               }`}
             >
@@ -57,7 +57,7 @@ const Article = () => {
 
         <br />
 
-        <button className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#226bff] to-[#65adff] text-white px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer">
+        <button className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#1A1A40] to-[#9234EA] text-white px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer">
           <Edit className="w-5" />
           Generate article
         </button>
@@ -66,7 +66,7 @@ const Article = () => {
       {/* right column */}
       <div className="w-full max-w-2xl p-4 bg-white rounded-lg flex flex-col border border-gray-200 min-h-96 max-h-[600px]">
         <div className="flex items-center gap-3">
-          <Edit className="w-6 text-[#4a7aff]" />
+          <Edit className="w-6 text-[#9234EA]" />
           <h1 className="text-lg font-semibold">Generated Article</h1>
         </div>
         <div className="flex-1 flex justify-center items-center">
