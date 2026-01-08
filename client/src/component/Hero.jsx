@@ -85,7 +85,9 @@ const Hero = () => {
 
 
 
+        <div className='absolute bottom-0 left-0 bg-linear-to-b from-transparent via-white/70 to-white h-10 w-full'/>
         </div>
+        
     )
 }
 
