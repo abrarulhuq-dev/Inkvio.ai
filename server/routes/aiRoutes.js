@@ -1,8 +1,10 @@
 import express from "express";
 import {
+    backgroundImage,
   generateArticle,
   generateBlog,
   generateImage,
+  removeImageObject,
   resumeReview,
 } from "../controllers/aiController.js";
 import { auth } from "../middlewares/auth.js";
