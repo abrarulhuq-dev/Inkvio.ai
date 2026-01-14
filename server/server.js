@@ -4,6 +4,7 @@ import "dotenv/config";
 import { clerkClient, clerkMiddleware, requireAuth } from "@clerk/express";
 import { Airouter } from "./routes/aiRoutes.js";
 import ConnectCloudinary from "./config/cloudinary.js";
+import { userRouter } from "./routes/userRoutes.js";
 
 const app = express();
 app.use(cors());
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 
 // app.use(requireAuth());
 app.use("/api/ai", Airouter);
+app.use("/api/user", userRouter);
 
 // ✅ Test Clerk auth
 // app.get("/test-auth",async (req, res) => {
