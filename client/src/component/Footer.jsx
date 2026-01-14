@@ -4,7 +4,7 @@ import { ArrowRight, Facebook, GithubIcon, Heart, Instagram, LinkedinIcon, Twitt
 
 const Footer = () => {
   return (
-    <div className='text-gray-500/80 pt-8 px-6 md:px-16 lg:px-24 xl:px-32'>
+    <div className='text-gray-500/80 pt-8  px-4 sm:px-15 xl:px-20'>
       <div className='flex flex-wrap justify-between gap-12 md:gap-6'>
         <div className='max-w-85'>
           <img src={assets.logo} alt="logo" className='mb-4 h-8 md:h-9' />

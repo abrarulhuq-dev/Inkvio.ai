@@ -11,8 +11,17 @@ import Objectremove from './pages/Objectremove'
 import Resumereview from './pages/Resumereview'
 import { Toaster } from 'react-hot-toast';
 import Community from './pages/Community'
+import { useAuth } from '@clerk/clerk-react'
 
 const App = () => {
+
+  const user = useAuth();
+
+
+  console.log("Token:", user.getToken().then((token) => console.log(token)));
+
+
+
   return (
 
     <div>
