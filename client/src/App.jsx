@@ -15,7 +15,6 @@ import AuthInterceptor from "../services/AuthInterceptor";
 import { useEffect } from "react";
 import Loader from "./component/LogoAnimate";
 import { useState } from "react";
-import { AnimatePresence } from "framer-motion";
 import BrandIntro from "./component/BrandIntro";
 // import { useAuth } from '@clerk/clerk-react'
 
@@ -36,9 +35,9 @@ const App = () => {
 
   if (loading) {
     return (
-      <AnimatePresence>
+      <div>
         <BrandIntro />
-      </AnimatePresence>
+      </div>
     );
   }
 
