@@ -16,18 +16,20 @@ export const generateArticle = async (req, res) => {
     const userId = req.userId;
     const plan = req.plan;
     const free_usage = req.free_usage;
-    const { prompt, length, tone } = req.body;
+    const { prompt, length } = req.body;
 
     if (plan !== "prostudio" && plan !== "creator" && free_usage >= 5) {
       return res.status(403).json({
         message: "Free usage limit exceeded. Please upgrade your plan.",
       });
     }
+    const tokenLimit = Math.ceil(length * 1.5);
+
     const response = await AI.chat.completions.create({
       model: "gemini-2.5-flash",
       messages: [{ role: "user", content: prompt }],
       temperature: 0.7,
-      max_tokens: length,
+      max_tokens: tokenLimit,
     });
 
     const content = response.choices[0].message.content;
@@ -66,8 +68,10 @@ export const generateBlog = async (req, res) => {
       model: "gemini-2.5-flash",
       messages: [{ role: "user", content: prompt }],
       temperature: 0.7,
-      max_tokens: 100,
+      max_tokens: 1000,
     });
+
+    console.log(response.choices[0]);
 
     const content = response.choices[0].message.content;
 
@@ -123,11 +127,11 @@ export const generateImage = async (req, res) => {
           "x-api-key": process.env.CLIPDROP_API_KEY,
         },
         responseType: "arraybuffer",
-      }
+      },
     );
     const imageBase64 = `data:image/png;base64,${Buffer.from(
       data,
-      "binary"
+      "binary",
     ).toString("base64")}`;
 
     const { secure_url } = await cloudinary.uploader.upload(imageBase64);
@@ -260,10 +264,10 @@ export const resumeReview = async (req, res) => {
     const free_usage = req.free_usage;
     const resume = req.file;
 
-
     if (plan !== "prostudio" && plan !== "creator") {
       return res.status(403).json({
-        message: "Resume review is available for Pro Studio and Creator plans only.",
+        message:
+          "Resume review is available for Pro Studio and Creator plans only.",
       });
     }
 
@@ -281,8 +285,6 @@ export const resumeReview = async (req, res) => {
 
     const data = await pdfdata.getText();
 
-  
-
     const prompt = `Review my resume and suggest improvements, highlighting areas for improvement. Here is the content:\n\n ${pdfdata.text}`;
 
     const response = await AI.chat.completions.create({
@@ -296,7 +298,6 @@ export const resumeReview = async (req, res) => {
 
     await db` INSERT INTO public.creations (user_id, prompt, content, type) values (${userId}, "Review my resume and suggest improvements, highlighting areas for improvement", ${content}, 'resume-review') `;
 
-    
     res.status(200).json({
       success: true,
       message: "Blog generated successfully",

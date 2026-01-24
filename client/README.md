@@ -1,12 +1,78 @@
-# React + Vite
+# Frontend README (Inkvio.ai – Client)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+The frontend of **Inkvio.ai** is a modern, responsive web application that provides users with an intuitive interface to access multiple AI-powered tools such as article generation, image generation, and content optimization.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+It focuses on clean UI/UX, performance, and seamless interaction with backend APIs.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+- **Framework:** React.js
+- **Styling:** Tailwind CSS
+- **State Management:** React Hooks / Context API
+- **Authentication:** Clerk (Frontend SDK)
+- **HTTP Client:** Fetch / Axios
+- **Deployment:** Vercel
+
+---
+
+## Folder Structure
+
+src/
+
+ ├── components/     # Reusable UI components
+
+ ├── pages/          # Page-level components
+
+ ├── assets/         # Images & static files
+
+ └── App.jsx         # Root component
+
+├── services/       # API service handlers
+
+---
+
+## Environment Variables
+
+Create a `.env` file in the root directory:
+
+VITE_CLERK_PUBLISHABLE_KEY=your_key_here
+
+VITE_API_BASE_URL=backend_url
+
+---
+
+## Running the Project
+
+npm install
+
+npm run dev
+
+---
+
+## Application Flow
+
+1. User logs in using Clerk authentication
+2. User accesses dashboard
+3. Selects an AI tool
+4. Inputs data
+5. Frontend sends request to backend API
+6. Displays AI-generated response
+
+---
+
+## ✨ Features
+
+- Responsive dashboard UI
+- Secure authentication
+- Real-time AI responses
+- Error and loading state handling
+
+---
+
+## Build for Production
+
+npm run build

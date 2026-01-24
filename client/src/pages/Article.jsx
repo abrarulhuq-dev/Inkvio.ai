@@ -1,5 +1,8 @@
 import { Edit, Sparkles } from "lucide-react";
 import React, { useState } from "react";
+import { articlesAPI } from "../../services/api";
+import toast from "react-hot-toast";
+import Markdown from "react-markdown";
 
 const Article = () => {
   const articlelength = [
@@ -11,9 +14,56 @@ const Article = () => {
   const [selectedLength, setselectedLength] = useState(articlelength[0]);
   const [topic, settopic] = useState("");
 
-  const OnSubmitHandler = (e) => {
+  const [loading, setloading] = useState(false);
+  const [error, seterror] = useState(null);
+
+  const [content, setcontent] = useState("");
+
+  const OnSubmitHandler = async (e) => {
     e.preventDefault();
     // handle form submission logic here
+
+    try {
+      setloading(true);
+      const prompt = `
+Write a long-form, in-depth article of AT LEAST ${selectedLength.length} WORDS.
+
+Topic: "${topic}"
+
+Strict requirements:
+- Minimum length: ${selectedLength.length} words
+- Use H2 and H3 headings
+- Include:
+  • Introduction (150–200 words)
+  • 5–7 detailed sections (250–300 words each)
+  • Practical examples
+  • Conclusion (200+ words)
+- Do NOT summarize early
+- Do NOT stop before reaching the minimum word count
+`;
+
+      const data = await articlesAPI.GenArticle({
+        prompt,
+        length: selectedLength.length,
+      });
+
+      if (data.success) {
+        setcontent(data.data);
+      } else {
+        seterror(data.message);
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(
+        "An error occurred while generating the article. Please try again.",
+      );
+      seterror(
+        "An error occurred while generating the article. Please try again.",
+      );
+    } finally {
+      setloading(false);
+    }
   };
 
   return (
@@ -28,6 +78,7 @@ const Article = () => {
           <Sparkles className="w-6 text-[#9234EA]" />
           <h1 className="text-lg font-semibold">Article Creation</h1>
         </div>
+
         <p className="mt-6 text-sm font-medium">Article Topic</p>
         <input
           type="text"
@@ -37,7 +88,6 @@ const Article = () => {
           value={topic}
           required
         />
-
         <p className="mt-4 text-sm font-medium">Artcile Length</p>
         <div className="mt-3 flex gap-3 flex-wrap sm:max-w-9/11">
           {articlelength.map((item, idx) => (
@@ -57,26 +107,42 @@ const Article = () => {
 
         <br />
 
-        <button className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#1A1A40] to-[#9234EA] text-white px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer">
-          <Edit className="w-5" />
+        <button
+          disabled={loading}
+          className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#1A1A40] to-[#9234EA] text-white px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer"
+        >
+          {loading ? (
+            <span className="w-4 h-4 my-1 rounded-full border-2 border-t-transparent animate-spin"></span>
+          ) : (
+            <Edit className="w-5" />
+          )}
           Generate article
         </button>
       </form>
 
       {/* right column */}
+
       <div className="w-full max-w-2xl p-4 bg-white rounded-lg flex flex-col border border-gray-200 min-h-96 max-h-[600px]">
         <div className="flex items-center gap-3">
           <Edit className="w-6 text-[#9234EA]" />
           <h1 className="text-lg font-semibold">Generated Article</h1>
         </div>
-        <div className="flex-1 flex justify-center items-center">
-          {/* Generated article content will go here */}
-          <div className="text-sm flex flex-col items-center gap-5 text-gray-400">
-            <Edit className="w-10 h-10"/>
-            <p>Enter a Topic and click "Generate article" to get started</p>
 
+        {!content ? (
+          <div className="flex-1 flex justify-center items-center">
+            {/* Generated article content will go here */}
+            <div className="text-sm flex flex-col items-center gap-5 text-gray-400">
+              <Edit className="w-10 h-10" />
+              <p>Enter a Topic and click "Generate article" to get started</p>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="mt-3 h-full overflow-y-scroll sidepanel-scrollbar text-sm text-slate-600">
+            <div className="reset-tw">
+              <Markdown>{content}</Markdown>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

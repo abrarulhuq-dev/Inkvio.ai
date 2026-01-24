@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useClerk, UserButton, useUser } from '@clerk/clerk-react'
 import { assets } from '../assets/assets'
 import toast from 'react-hot-toast'
+import AnimatedLogo from './LogoAnimate'
 
 const notify = () => {
     toast.custom(() => (
@@ -37,7 +38,6 @@ const Navbar = () => {
     return (
         <div className='fixed z-5 w-full flex justify-between items-center py-3 px-4 sm:px-15 xl:px-20'>
             <img src={assets.logo} alt="logo" className='w-32 sm:w-44 cursor-pointer' onClick={() => navigate('/')} />
-
             {
             user ? <UserButton /> 
             : 

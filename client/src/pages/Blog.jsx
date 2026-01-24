@@ -1,15 +1,66 @@
 import { Edit, Hash, Sparkles } from "lucide-react";
 import React, { useState } from "react";
+import { blogsAPI } from "../../services/api";
+import Markdown from "react-markdown";
 
 const Blog = () => {
-  const blogCategory = ["General", 'Technology', 'Busniess', 'Health', 'Lifestyle', 'Education', 'Travel', 'Food'];
+  const blogCategory = [
+    "General",
+    "Technology",
+    "Busniess",
+    "Health",
+    "Lifestyle",
+    "Education",
+    "Travel",
+    "Food",
+  ];
 
-  const [Selectcategory, setSelectcategory] = useState('General');
+  const [Selectcategory, setSelectcategory] = useState("General");
   const [topic, settopic] = useState("");
+  const [loading, setloading] = useState(false);
+  const [error, seterror] = useState(null);
+  const [content, setcontent] = useState("");
 
-  const OnSubmitHandler = (e) => {
+  const OnSubmitHandler = async (e) => {
     e.preventDefault();
     // handle form submission logic here
+
+    try {
+      setloading(true);
+      const prompt = `Generate Blog titles on the topic 
+Topic: "AI"
+Category: "Education"
+
+STRICT OUTPUT RULES:
+- Output ONLY a numbered list (1–5)
+- Do NOT write introductions
+- Do NOT say "Here are"
+- Do NOT add explanations
+- Do NOT use markdown
+- Each title must be under 60 characters
+`;
+
+      const data = await blogsAPI.GenBlog({
+        prompt,
+      });
+
+      if (data.success) {
+        setcontent(data.data);
+      } else {
+        seterror(data.message);
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(
+        "An error occurred while generating the article. Please try again.",
+      );
+      seterror(
+        "An error occurred while generating the article. Please try again.",
+      );
+    } finally {
+      setloading(false);
+    }
   };
 
   return (
@@ -53,8 +104,15 @@ const Blog = () => {
 
         <br />
 
-        <button className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#1A1A40] to-[#9234EA] text-white px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer">
-          <Hash className="w-5" />
+        <button
+          disabled={loading}
+          className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#1A1A40] to-[#9234EA] text-white px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer"
+        >
+          {loading ? (
+            <span className="w-4 h-4 my-1 rounded-full border-2 border-t-transparent animate-spin"></span>
+          ) : (
+            <Hash className="w-5" />
+          )}
           Generate title
         </button>
       </form>
@@ -67,10 +125,18 @@ const Blog = () => {
         </div>
         <div className="flex-1 flex justify-center items-center">
           {/* Generated article content will go here */}
-          <div className="text-sm flex flex-col items-center gap-5 text-gray-400">
-            <Hash className="w-10 h-10" />
-            <p>Enter keywords and click "Generate Titles" to get started</p>
-          </div>
+          {!content ? (
+            <div className="text-sm flex flex-col items-center gap-5 text-gray-400">
+              <Hash className="w-10 h-10" />
+              <p>Enter keywords and click "Generate Titles" to get started</p>
+            </div>
+          ) : (
+            <div className="mt-3 h-full overflow-y-scroll sidepanel-scrollbar text-sm text-slate-600">
+              <div className="reset-tw">
+                <Markdown>{content}</Markdown>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
