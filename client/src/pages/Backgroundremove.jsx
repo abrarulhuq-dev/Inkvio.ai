@@ -1,19 +1,43 @@
-import { Eraser, Sparkles } from 'lucide-react';
-import React, { useState } from 'react'
+import { Eraser, Sparkles } from "lucide-react";
+import React, { useState } from "react";
+import { backgroundAPI } from "../services/api";
+import toast from "react-hot-toast";
 
 const Backgroundremove = () => {
+  const [topic, settopic] = useState("");
+  const [loading, setloading] = useState(false);
+  const [error, seterror] = useState(null);
+  const [content, setcontent] = useState("");
 
-  const blogCategory = ["General", 'Technology', 'Busniess', 'Health', 'Lifestyle', 'Education', 'Travel', 'Food'];
-
-  const [Selectcategory, setSelectcategory] = useState('General');
-  const [topic, settopic] = useState('');
-
-  const OnSubmitHandler = (e) => {
+  const OnSubmitHandler = async (e) => {
     e.preventDefault();
     // handle form submission logic here
+    try {
+      setloading(true);
+      const fromData = new FormData();
+      fromData.append("image", topic);
+
+      const data = await backgroundAPI.RemoveBackground(fromData);
+      if (data.success) {
+        setcontent(data.data);
+      } else {
+        seterror(data.message);
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(
+        "An error occurred while generating the article. Please try again.",
+      );
+      seterror(
+        "An error occurred while generating the article. Please try again.",
+      );
+    } finally {
+      setloading(false);
+    }
   };
   return (
-      <div className="h-full overflow-y-scroll sidepanel-scrollbar p-6 flex items-start flex-wrap gap-4 text-slate-700">
+    <div className="h-full overflow-y-scroll sidepanel-scrollbar p-6 flex items-start flex-wrap gap-4 text-slate-700">
       {/* left column */}
 
       <form
@@ -29,11 +53,12 @@ const Backgroundremove = () => {
           type="file"
           className="w-full p-2 px-3 mt-3 border border-gray-300 outline-none textsm rounded-md text-gray-600 "
           onChange={(e) => settopic(e.target.files[0])}
-          accept='image/*'
-          value={topic}
+          accept="image/*"
           required
         />
-        <p className='text-xs text-gray-500 font-light mt-1'>Supports JNG, PNG and other image formats</p>
+        <p className="text-xs text-gray-500 font-light mt-1">
+          Supports JNG, PNG and other image formats
+        </p>
 
         {/* <p className="mt-4 text-sm font-medium">Category</p>
         <div className="mt-3 flex gap-3 flex-wrap sm:max-w-9/11">
@@ -52,9 +77,15 @@ const Backgroundremove = () => {
           ))}
         </div> */}
 
-
-        <button className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#1A1A40] to-[#9234EA] text-white px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer">
-          <Eraser className="w-5" />
+        <button
+          disabled={loading}
+          className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#1A1A40] to-[#9234EA] text-white px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer"
+        >
+          {loading ? (
+            <span className="w-4 h-4 my-1 rounded-full border-2 border-t-transparent animate-spin"></span>
+          ) : (
+            <Eraser className="w-5" />
+          )}
           Remove background
         </button>
       </form>
@@ -67,14 +98,22 @@ const Backgroundremove = () => {
         </div>
         <div className="flex-1 flex justify-center items-center">
           {/* Generated article content will go here */}
-          <div className="text-sm flex flex-col items-center gap-5 text-gray-400">
-            <Eraser className="w-10 h-10" />
-            <p>Enter a Topic and click "Remove Background" to get started</p>
-          </div>
+          {content ? (
+            <img
+              src={content}
+              alt="Processed"
+              className="w-full max-h-[600px] object-contain"
+            />
+          ) : (
+            <div className="text-sm flex flex-col items-center gap-5 text-gray-400">
+              <Eraser className="w-10 h-10" />
+              <p>Enter a Topic and click "Remove Background" to get started</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Backgroundremove
+export default Backgroundremove;

@@ -1,6 +1,6 @@
 import { Edit, Hash, Sparkles } from "lucide-react";
 import React, { useState } from "react";
-import { blogsAPI } from "../../services/api";
+import { blogsAPI } from "../services/api";
 import Markdown from "react-markdown";
 
 const Blog = () => {

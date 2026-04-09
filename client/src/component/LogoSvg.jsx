@@ -9,6 +9,7 @@ const pathVariant = {
   },
   visible: {
     pathLength: 1,
+    stroke: "#1A1A40",  
     transition: {
       duration: DRAW_DURATION,
       ease: "easeInOut",

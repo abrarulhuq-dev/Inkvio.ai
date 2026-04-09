@@ -1,6 +1,6 @@
 import { Edit, Sparkles } from "lucide-react";
 import React, { useState } from "react";
-import { articlesAPI } from "../../services/api";
+import { articlesAPI } from "../services/api";
 import toast from "react-hot-toast";
 import Markdown from "react-markdown";
 

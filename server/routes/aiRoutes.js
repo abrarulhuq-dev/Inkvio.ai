@@ -17,4 +17,6 @@ Airouter.post("/generate-blog", auth, generateBlog);
 Airouter.post("/generate-image", auth, generateImage);
 Airouter.post("/remove-background-image", auth, upload.single("image") , backgroundImage);
 Airouter.post("/remove-image-object", auth,upload.single("image"), removeImageObject);
-Airouter.post("/generate-image", auth, generateImage);Airouter.post("/review-resume", auth, upload.single("resume"), resumeReview);
+Airouter.post("/generate-image", auth, generateImage);
+Airouter.post("/review-resume", auth, upload.single("resume"), resumeReview);
+

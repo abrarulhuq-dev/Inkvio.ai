@@ -18,12 +18,19 @@ export const generateArticle = async (req, res) => {
     const free_usage = req.free_usage;
     const { prompt, length } = req.body;
 
+    // console.log("User ID:", userId);
+    // console.log("User Plan:", plan);
+    // console.log("User Free Usage:", free_usage);
+    // console.log("Prompt:", prompt);
+    // console.log("Length:", length);
+
     if (plan !== "prostudio" && plan !== "creator" && free_usage >= 5) {
       return res.status(403).json({
         message: "Free usage limit exceeded. Please upgrade your plan.",
       });
     }
-    const tokenLimit = Math.ceil(length * 1.5);
+     const tokenLimit = Math.max(Math.ceil(length * 3), 3000);
+
 
     const response = await AI.chat.completions.create({
       model: "gemini-2.5-flash",
@@ -33,6 +40,8 @@ export const generateArticle = async (req, res) => {
     });
 
     const content = response.choices[0].message.content;
+
+    // console.log("Generated content length:", content);
 
     await db` INSERT INTO public.creations (user_id, prompt, content, type) values (${userId}, ${prompt}, ${content}, 'article') `;
 
@@ -48,10 +57,11 @@ export const generateArticle = async (req, res) => {
       data: content,
     });
   } catch (error) {
-    console.log("Auth middleware error:", error);
+    console.log("Error generating article:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+ 
 export const generateBlog = async (req, res) => {
   try {
     const userId = req.userId;
@@ -64,11 +74,12 @@ export const generateBlog = async (req, res) => {
         message: "Free usage limit exceeded. Please upgrade your plan.",
       });
     }
+
     const response = await AI.chat.completions.create({
       model: "gemini-2.5-flash",
       messages: [{ role: "user", content: prompt }],
       temperature: 0.7,
-      max_tokens: 1000,
+      max_tokens: 3000,
     });
 
     console.log(response.choices[0]);
@@ -161,7 +172,8 @@ export const backgroundImage = async (req, res) => {
     const userId = req.userId;
     const plan = req.plan;
     // const free_usage = req.free_usage;
-    const { image } = req.file;
+    const image = req.file;
+
 
     // later work on free usage for image generation
     if (plan !== "prostudio" && plan !== "creator") {
@@ -186,7 +198,7 @@ export const backgroundImage = async (req, res) => {
       ],
     });
 
-    await db` INSERT INTO public.creations (user_id, prompt, content, type) values (${userId}, 'Remove background from image', ${secure_url}, 'background-remover'}) `;
+    await db` INSERT INTO public.creations (user_id, prompt, content, type) values (${userId}, 'Remove background from image', ${secure_url}, 'background-remover') `;
 
     // if (plan !== "prostudio" && plan !== "creator") {
     //   await clerkClient.users.updateUserMetadata(userId, {
@@ -211,7 +223,7 @@ export const removeImageObject = async (req, res) => {
     const plan = req.plan;
     // const free_usage = req.free_usage;
     const { object } = req.body;
-    const { image } = req.file;
+    const image  = req.file;
 
     // later work on free usage for image generation
     if (plan !== "prostudio" && plan !== "creator") {
@@ -238,7 +250,7 @@ export const removeImageObject = async (req, res) => {
       resource_type: "image",
     });
 
-    await db` INSERT INTO public.creations (user_id, prompt, content, type) values (${userId}, ${`remove ${object} from image`}, ${imageurl}, 'oject-remover'}) `;
+    await db` INSERT INTO public.creations (user_id, prompt, content, type) values (${userId}, ${`remove ${object} from image`}, ${imageurl}, 'oject-remover') `;
 
     // if (plan !== "prostudio" && plan !== "creator") {
     //   await clerkClient.users.updateUserMetadata(userId, {
@@ -285,23 +297,28 @@ export const resumeReview = async (req, res) => {
 
     const data = await pdfdata.getText();
 
+    // console.log("Extracted PDF text :", data);
+
     const prompt = `Review my resume and suggest improvements, highlighting areas for improvement. Here is the content:\n\n ${pdfdata.text}`;
 
     const response = await AI.chat.completions.create({
       model: "gemini-2.5-flash",
       messages: [{ role: "user", content: prompt }],
       temperature: 0.7,
-      max_tokens: 100,
+      max_tokens:  4000,
     });
 
     const content = response.choices[0].message.content;
+   
 
-    await db` INSERT INTO public.creations (user_id, prompt, content, type) values (${userId}, "Review my resume and suggest improvements, highlighting areas for improvement", ${content}, 'resume-review') `;
+    const storeprompt = "Review my resume and suggest improvements, highlighting areas for improvement";
+
+    await db` INSERT INTO public.creations (user_id, prompt, content, type) values (${userId}, ${storeprompt}, ${content}, 'resume-review') `;
 
     res.status(200).json({
       success: true,
-      message: "Blog generated successfully",
-      data: pdfdata.text,
+      message: "Resume reviewed successfully",
+      data: content,
     });
   } catch (error) {
     console.log("Auth middleware error:", error);

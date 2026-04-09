@@ -11,11 +11,11 @@ import Objectremove from "./pages/Objectremove";
 import Resumereview from "./pages/Resumereview";
 import { Toaster } from "react-hot-toast";
 import Community from "./pages/Community";
-import AuthInterceptor from "../services/AuthInterceptor";
 import { useEffect } from "react";
 import Loader from "./component/LogoAnimate";
 import { useState } from "react";
 import BrandIntro from "./component/BrandIntro";
+import AuthInterceptor from "./services/AuthInterceptor";
 // import { useAuth } from '@clerk/clerk-react'
 
 const App = () => {
