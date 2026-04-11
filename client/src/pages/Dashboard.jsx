@@ -3,12 +3,21 @@ import { dummyCreationData } from "../assets/assets";
 import { Gem, Sparkles } from "lucide-react";
 import { Protect } from "@clerk/clerk-react";
 import CreationItem from "../component/CreationItem";
+import { userAPI } from "../services/api";
 
 const Dashboard = () => {
   const [creations, setcreations] = useState([]);
-
+  const [loading, setLoading] = useState(false);
   const getDashboardData = async () => {
-    setcreations(dummyCreationData);
+    try {
+      setLoading(true);
+      const res = await userAPI.GetCreations();
+      setcreations(res.data);
+    } catch (error) {
+      console.log("Dashboard Data Fetch Error:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -50,9 +59,13 @@ const Dashboard = () => {
       </div>
       <div className="space-y-3">
         <p className="mt-6 mb-4">Recent Creations</p>
-        {
+        {loading ? (
+          <p className="text-center mt-10">Loading...</p>
+        ) : creations.length === 0 ? (
+          <p className="text-center mt-10">No creations found.</p>
+        ) : (
           creations.map((item) => <CreationItem key={item._id} item={item} />)
-        }
+        )}
       </div>
     </div>
   );

@@ -53,3 +53,18 @@ export const resumeAPI = {
     return API.post("ai/review-resume", data);
   },
 };
+
+export const userAPI = {
+  GetCreations: () => {
+    return API.get("user/creations");
+  },
+};
+
+export const publicAPI = {
+  GetPublicCreations: () => {
+    return API.get("user/public-creations");  
+  },
+  LikeCreation: (id) => {
+    return API.post(`user/like-creation/${id}`);
+  },
+};

@@ -18,7 +18,7 @@ export const getuserCreations = async (req, res) => {
 export const getpublicCreations = async (req, res) => {
   try {
     const data =
-      await db`SELECT * FROM  public.creations WHERE is_public = true ORDER BY created_at DESC `;
+      await db`SELECT * FROM  public.creations WHERE publish = true ORDER BY created_at DESC `;
 
     res.status(200).json({ success: true, data });
   } catch (error) {
