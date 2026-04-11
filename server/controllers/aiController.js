@@ -29,8 +29,7 @@ export const generateArticle = async (req, res) => {
         message: "Free usage limit exceeded. Please upgrade your plan.",
       });
     }
-     const tokenLimit = Math.max(Math.ceil(length * 3), 3000);
-
+    const tokenLimit = Math.max(Math.ceil(length * 3), 3000);
 
     const response = await AI.chat.completions.create({
       model: "gemini-2.5-flash",
@@ -61,7 +60,7 @@ export const generateArticle = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
- 
+
 export const generateBlog = async (req, res) => {
   try {
     const userId = req.userId;
@@ -174,7 +173,6 @@ export const backgroundImage = async (req, res) => {
     // const free_usage = req.free_usage;
     const image = req.file;
 
-
     // later work on free usage for image generation
     if (plan !== "prostudio" && plan !== "creator") {
       return res.status(403).json({
@@ -223,7 +221,7 @@ export const removeImageObject = async (req, res) => {
     const plan = req.plan;
     // const free_usage = req.free_usage;
     const { object } = req.body;
-    const image  = req.file;
+    const image = req.file;
 
     // later work on free usage for image generation
     if (plan !== "prostudio" && plan !== "creator") {
@@ -274,7 +272,6 @@ export const resumeReview = async (req, res) => {
     const userId = req.userId;
     const plan = req.plan;
     const free_usage = req.free_usage;
-    const resume = req.file;
 
     if (plan !== "prostudio" && plan !== "creator") {
       return res.status(403).json({
@@ -289,29 +286,45 @@ export const resumeReview = async (req, res) => {
       });
     }
 
-     // ✅ Read file as Buffer (not Uint8Array)
-    const fileBuffer = fs.readFileSync(resume.path);
-    
-    // ✅ Correct pdf-parse usage: await the function directly
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
+
+    const fileBuffer = req.file.buffer;
+
     const pdfData = await pdf(fileBuffer);
     const extractedText = pdfData.text;
 
-    
+    if (!extractedText || extractedText.trim().length === 0) {
+      return res.status(400).json({
+        message: "Could not extract text from PDF",
+      });
+    }
 
+    const prompt = `
+You are a professional resume reviewer.
 
-    const prompt = `Review my resume and suggest improvements, highlighting areas for improvement. Here is the content:\n\n ${extractedText}`;
+Analyze the following resume and:
+- Identify weak areas
+- Suggest improvements
+- Suggest better wording
+- Highlight missing sections
+
+Resume:
+${extractedText}
+`;
 
     const response = await AI.chat.completions.create({
       model: "gemini-2.5-flash",
       messages: [{ role: "user", content: prompt }],
       temperature: 0.7,
-      max_tokens:  4000,
+      max_tokens: 4000,
     });
 
     const content = response.choices[0].message.content;
-   
 
-    const storeprompt = "Review my resume and suggest improvements, highlighting areas for improvement";
+    const storeprompt =
+      "Review my resume and suggest improvements, highlighting areas for improvement";
 
     await db` INSERT INTO public.creations (user_id, prompt, content, type) values (${userId}, ${storeprompt}, ${content}, 'resume-review') `;
 
