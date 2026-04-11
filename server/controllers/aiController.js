@@ -4,7 +4,7 @@ import { clerkClient } from "@clerk/express";
 import axios from "axios";
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
-import { PDFParse } from "pdf-parse";
+import pdf from "pdf-parse";
 
 const AI = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -289,17 +289,17 @@ export const resumeReview = async (req, res) => {
       });
     }
 
-    const databuffer = fs.readFileSync(resume.path);
+     // ✅ Read file as Buffer (not Uint8Array)
+    const fileBuffer = fs.readFileSync(resume.path);
+    
+    // ✅ Correct pdf-parse usage: await the function directly
+    const pdfData = await pdf(fileBuffer);
+    const extractedText = pdfData.text;
 
-    const uintt8array = new Uint8Array(databuffer);
+    
 
-    const pdfdata = new PDFParse(uintt8array);
 
-    const data = await pdfdata.getText();
-
-    // console.log("Extracted PDF text :", data);
-
-    const prompt = `Review my resume and suggest improvements, highlighting areas for improvement. Here is the content:\n\n ${pdfdata.text}`;
+    const prompt = `Review my resume and suggest improvements, highlighting areas for improvement. Here is the content:\n\n ${extractedText}`;
 
     const response = await AI.chat.completions.create({
       model: "gemini-2.5-flash",
