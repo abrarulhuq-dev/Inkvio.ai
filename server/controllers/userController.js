@@ -52,7 +52,7 @@ export const likeCreation = async (req, res) => {
       message = "Like added successfully";
     }
 
-    const formattedArray = `{${updatedLikes.json(',')}`;
+    const formattedArray = `{${updatedLikes.join(',')}`;
 
     await db` UPDATE public.creations SET likes = ${formattedArray} WHERE id = ${id} RETURNING * `;
    
