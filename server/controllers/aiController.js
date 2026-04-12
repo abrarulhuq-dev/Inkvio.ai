@@ -280,12 +280,6 @@ export const resumeReview = async (req, res) => {
       });
     }
 
-    if (resume.size > 5 * 1024 * 1024) {
-      return res.status(400).json({
-        message: "File size exceeds 5MB limit.",
-      });
-    }
-
     if (!req.file) {
       return res.status(400).json({ message: "No file uploaded" });
     }
