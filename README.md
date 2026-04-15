@@ -65,7 +65,7 @@ Inkvio.ai solves these problems by providing an all-in-one AI-powered platform w
 
 **Database:**
 
-- PostgreSQL
+- Neon Serverless PostgreSQL
 
 **AI Services:**
 
@@ -79,7 +79,7 @@ Inkvio.ai solves these problems by providing an all-in-one AI-powered platform w
 **Deployment:**
 
 - Frontend: Vercel
-- Backend: Render
+- Backend: Vercel
 
 ---
 
